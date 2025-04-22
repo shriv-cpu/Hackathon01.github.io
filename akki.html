@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    margin: 0;
+    background-color: #000;
+    color: #eee;
+    font-family: Poppins;
+    font-size: 12px;
+}
+a{
+    text-decoration: none;
+}
+header{
+    width: 1140px;
+    max-width: 80%;
+    margin: auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+}
+header a{
+    color: #eee;
+    margin-right: 40px;
+}
+
+.carousel{
+    height: 100vh;
+    margin-top: -50px;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+.carousel .list .item{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0 0 0 0;
+}
+.carousel .list .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.carousel .list .item .content{
+    position: absolute;
+    top: 20%;
+    width: 1140px;
+    max-width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-right: 30%;
+    box-sizing: border-box;
+    color: #fff;
+    text-shadow: 0 5px 10px #0004;
+}
+.carousel .list .item .author{
+    font-weight: bold;
+    letter-spacing: 10px;
+}
+.carousel .list .item .title,
+.carousel .list .item .topic{
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1.3em;
+}
+.carousel .list .item .topic{
+    color: #f1683a;
+}
+.carousel .list .item .buttons{
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+    grid-template-rows: 40px;
+    gap: 5px;
+    margin-top: 20px;
+}
+.carousel .list .item .buttons button{
+    border: none;
+    background-color: #eee;
+    letter-spacing: 3px;
+    font-family: Poppins;
+    font-weight: 500;
+}
+.carousel .list .item .buttons button:nth-child(2){
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #eee;
+}
+
+.thumbnail{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    width: max-content;
+    z-index: 100;
+    display: flex;
+    gap: 20px;
+}
+.thumbnail .item{
+    width: 150px;
+    height: 220px;
+    flex-shrink: 0;
+    position: relative;
+}
+.thumbnail .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.thumbnail .item .content{
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+.thumbnail .item .content .title{
+    font-weight: 500;
+}
+.thumbnail .item .content .description{
+    font-weight: 300;
+}
+
+.arrows{
+    position: absolute;
+    top: 80%;
+    right: 52%;
+    z-index: 100;
+    width: 300px;
+    max-width: 30%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.arrows button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee4;
+    border: none;
+    color: #fff;
+    font-family: monospace;
+    font-weight: bold;
+    transition: .5s;
+}
+.arrows button:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+
+.carousel .list .item:nth-child(1){
+    z-index: 1;
+}
+
+
+
+.carousel .list .item:nth-child(1) .content .author,
+.carousel .list .item:nth-child(1) .content .title,
+.carousel .list .item:nth-child(1) .content .topic,
+.carousel .list .item:nth-child(1) .content .des,
+.carousel .list .item:nth-child(1) .content .buttons
+{
+    transform: translateY(50px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent .5s 1s linear 1 forwards;
+}
+@keyframes showContent{
+    to{
+        transform: translateY(0px);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+.carousel .list .item:nth-child(1) .content .title{
+    animation-delay: 1.2s!important;
+}
+.carousel .list .item:nth-child(1) .content .topic{
+    animation-delay: 1.4s!important;
+}
+.carousel .list .item:nth-child(1) .content .des{
+    animation-delay: 1.6s!important;
+}
+.carousel .list .item:nth-child(1) .content .buttons{
+    animation-delay: 1.8s!important;
+}
+.carousel.next .list .item:nth-child(1) img{
+    width: 150px;
+    height: 220px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    border-radius: 30px;
+    animation: showImage .5s linear 1 forwards;
+}
+@keyframes showImage{
+    to{
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}
+
+.carousel.next .thumbnail .item:nth-last-child(1){
+    overflow: hidden;
+    animation: showThumbnail .5s linear 1 forwards;
+}
+.carousel.prev .list .item img{
+    z-index: 100;
+}
+@keyframes showThumbnail{
+    from{
+        width: 0;
+        opacity: 0;
+    }
+}
+.carousel.next .thumbnail{
+    animation: effectNext .5s linear 1 forwards;
+}
+
+@keyframes effectNext{
+    from{
+        transform: translateX(150px);
+    }
+}
+
+
+
+.carousel .time{
+    position: absolute;
+    z-index: 1000;
+    width: 0%;
+    height: 3px;
+    background-color: #f1683a;
+    left: 0;
+    top: 0;
+}
+
+.carousel.next .time,
+.carousel.prev .time{
+    animation: runningTime 3s linear 1 forwards;
+}
+@keyframes runningTime{
+    from{ width: 100%}
+    to{width: 0}
+}
+
+
+
+.carousel.prev .list .item:nth-child(2){
+    z-index: 2;
+}
+
+.carousel.prev .list .item:nth-child(2) img{
+    animation: outFrame 0.5s linear 1 forwards;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+@keyframes outFrame{
+    to{
+        width: 150px;
+        height: 220px;
+        bottom: 50px;
+        left: 50%;
+        border-radius: 20px;
+    }
+}
+
+.carousel.prev .thumbnail .item:nth-child(1){
+    overflow: hidden;
+    opacity: 0;
+    animation: showThumbnail .5s linear 1 forwards;
+}
+.carousel.next .arrows button,
+.carousel.prev .arrows button{
+    pointer-events: none;
+}
+.carousel.prev .list .item:nth-child(2) .content .author,
+.carousel.prev .list .item:nth-child(2) .content .title,
+.carousel.prev .list .item:nth-child(2) .content .topic,
+.carousel.prev .list .item:nth-child(2) .content .des,
+.carousel.prev .list .item:nth-child(2) .content .buttons
+{
+    animation: contentOut 1.5s linear 1 forwards!important;
+}
+
+@keyframes contentOut{
+    to{
+        transform: translateY(-150px);
+        filter: blur(20px);
+        opacity: 0;
+    }
+}
+@media screen and (max-width: 678px) {
+    .carousel .list .item .content{
+        padding-right: 0;
+    }
+    .carousel .list .item .content .title{
+        font-size: 30px;
+    }
+}
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.buttons button{ 
+    width: 100%;
+    height: 100%;
+    background-color: #f1683a;
+    border: none;
+    cursor: pointer;
+    font-family: Poppins;
+}
+
+.buttons a{ 
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    color: black;
+    
+    padding: 2px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-family: Poppins;
+}
+
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #444;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #fff;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.modal-title {
+    color: #f1683a;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.modal-description {
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.modal-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.des{
+    font-size: 1rem
+}
+
+.des1{
+    display:none;
+}
+</style>
+<body>
+    <header>
+        <nav>
+            <a href="">Home</a>
+            <a href="">Contacts</a>
+            <a href="">Info</a>
+        </nav>
+    </header>
+
+    <div class="carousel">
+       
+        <div class="list">
+            <div class="item">
+                <img src="https://xploretheearth.com/wp-content/uploads/2021/01/Gokarna-Main-Beach-1024x768.jpg">
+                <div class="content">
+                    <div class="author">YOUR</div>
+                    <div class="title">TRAVEL GUIDE</div>
+                    <div class="topic">
+                        INDIAN HIDDEN GEMS FOUND BY US FOR YOU.
+                    </div>
+                    <div class="buttons">
+                        <button>SEE MORE</button>
+                        
+                        
+                
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://karnatakatourism.org/wp-content/uploads/2020/05/Hampi.jpg">
+                <div class="content">
+                    <div class="author"></div>
+                    <div class="title">HAMPI</div>
+                    <div class="topic"></div>
+                    <div class="des">Hampi's Forgotten Kingdom: Stones of Time Hampi, a country of ruins and echoes, tells the story of a long-forgotten kingdom
+                    </div>
+                    <div class="des1">Hampi, a UNESCO World Heritage Site, is a historic city located in the state of Karnataka, India. Once the capital of the Vijayanagara Empire (14th–16th centuries), it is known for its spectacular ruins, captivating landscapes, and vibrant temples. The city is a blend of ancient architecture and natural beauty, with dramatic boulder-strewn hills and serene riverbanks.
+
+                        Must-visit places in Hampi:
+                        
+                        Virupaksha Temple: A key religious site, this 7th-century temple is dedicated to Lord Shiva and is one of the oldest functioning temples in India.
+                        
+                        Vittala Temple Complex: Known for its iconic Stone Chariot, this temple is a marvel of Vijayanagara architecture.
+                        
+                        Hampi Bazaar: A bustling market street with ruins of pavilions and a grand view of the Virupaksha Temple.
+                        
+                        Matanga Hill: Offering a panoramic view of the entire Hampi landscape, it’s perfect for sunrise or sunset hikes.
+                        
+                        Anegundi Village: Just across the river, this peaceful village has historical sites like the Pampa Sarovara and the Rishimukh hill.
+                        
+                        The fusion of ancient heritage and surreal scenery makes Hampi a timeless destination.
+                       </div>
+                    <div class="buttons">
+                        <button>SEE MORE</button>
+                        <a type="button" href="https://maps.app.goo.gl/sZE4mT9UaE1YLTe47">GET LOCATION</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://s7ap1.scene7.com/is/image/incredibleindia/1-om-beach-gokarna-karnataka-city-hero?qlt=82&ts=1726720866389">
+                <div class="content">
+                    <div class="author"></div>
+                    <div class="title">GOKARNA</div>
+                    <div class="topic"></div>
+                    <div class="des">
+                        Gokarna is renowned for its beautiful, secluded beaches and its significant religious importance as a Hindu pilgrimage site.
+                    </div>
+                    <div class="des1">Gokarna, nestled on Karnataka's western coast, is a serene blend of spirituality and natural beauty. The town's main attraction is the Mahabaleshwar Temple, a 4th-century Dravidian-style temple dedicated to Lord Shiva. It's one of the seven sacred Muktikshetras and a revered pilgrimage site .​
+                        
+                        For beach enthusiasts, Om Beach is a must-visit. Shaped like the sacred 'Om' symbol, it offers water sports like surfing and parasailing, along with stunning views and vibrant cafes . Nearby, Kudle Beach is perfect for a laid-back experience, featuring golden sands, palm trees, and cozy beachside shacks .​
+        
+                        
+                        For those seeking seclusion, Half Moon Beach and Paradise Beach are accessible only by foot or boat, offering pristine environments ideal for camping and stargazing .​
+                        Gokarna Tourism
+                        
+                        Don't miss the Mirjan Fort, a 16th-century coastal fort surrounded by lush greenery, offering a glimpse into Gokarna's rich history .​
+                        Holidify
+                        
+                        Whether you're drawn to its spiritual heritage or natural landscapes, Gokarna provides a tranquil escape from the hustle and bustle.​
+                       </div>
+                    <div class="buttons">
+                        <button>SEE MORE</button>
+                        <a type="button" href="https://maps.app.goo.gl/Zgf85wG59DvB1cHs6">GET LOCATION</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://www.meghalayatourism.in/wp-content/uploads/2020/07/Mawlynnong-Living-Root-Bridge-1.jpg"/>
+                    <div class="content">
+                    <div class="author"></div>
+                    <div class="title">MAWLYNNONG</div>
+                    <div class="topic">MEGHALAYA</div>
+                    <div class="des">
+                        It is notable for its cleanliness and also was chosen by Discover India magazine as Asia's cleanest village.[2]
+                    </div>
+                    <div class="des1">
+                        Mawlynnong, often dubbed “Asia’s cleanest village,” is a serene hamlet in Meghalaya, India. Nestled in the East Khasi Hills, it's famed for its spotless lanes, bamboo dustbins, eco-conscious community, and matrilineal culture. Surrounded by lush greenery and blooming gardens, it offers a glimpse into sustainable rural living.
+
+Nearby, you can explore Living Root Bridges in Riwai, a short walk from the village—natural marvels formed by guiding tree roots across streams. Just a drive away, Dawki offers crystal-clear waters of the Umngot River where boat rides feel like gliding on glass. Balancing Rock, a mysterious natural formation near Mawlynnong, defies gravity and local legend surrounds it. The Sky View Point, a bamboo structure, offers panoramic views of the plains of Bangladesh.
+
+Mawlynnong is a peaceful retreat where nature and harmony blend seamlessly.
+                       </div>
+                    <div class="buttons">
+                        <button>SEE MORE</button>
+                        <a type="button" href="https://maps.app.goo.gl/4iiaEGFnatxkmNvd7">GET LOCATION</a>
+                    
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB9yX74tx6XeMhnSzxx5cJTOgKSa0WvAQUI-iS3Ew6la3119xcxPuUua5688KQEG4T3JVUOBe6hDkRZgol5dWPuc380p5DzP2oD3SFyPR1lIk7Lm_sjtdVYtLhgtSYs3cRkKS-fZ=w675-h390-n-k-no">
+                <div class="content">
+                    <div class="author"></div>
+                    <div class="title">MADIKERI</div>
+                    <div class="topic">KARNATAKA</div>
+                    <div class="des">
+                        Madikeri, the heart of Coorg, is renowned for its lush landscapes, historic forts, and coffee plantations.
+                    </div>
+                    <div class="buttons">
+                        <button>SEE MORE</button>
+                        <a type="button" href="https://maps.app.goo.gl/JGFaTZ2nDithq5e18">GET LOCATION</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://www.trawell.in/admin/images/upload/932329389KedareshwaraTemple_Main.jpg">
+                <div class="content">
+                    <div class="title">
+                        Arvalem Caves Halebidu
+                    </div>
+                    <div class="topic">KARNATAKA</div>
+                    <div class="description">
+                        Halebidu, Karnataka is the location of the Hoysaleshwara Temple, an architectural marvel showcasing intricate carvings and sculptures, particularly of Hindu deities and scenes from Hoysala history
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="item">
+            <img src="https://captureatrip-cms-storage.s3.ap-south-1.amazonaws.com/Sadri_6f2ab848dc.webp"/>
+                <div class="content">
+                <div class="author"></div>
+                <div class="title">Ranakpur Jain Temple</div>
+                <div class="topic">Rajesthan</div>
+                <div class="des">
+
+                The Ranakpur Jain Temple, also known as the Chaturmukha Dharana Vihara, is a significant Jain temple located in Ranakpur, Rajasthan, India. Built in the 15th century, it's dedicated to Adinath, the first Tirthankara in Jainism.
+                
+                    
+                </div>
+                <div class="des1">
+                    The Ranakpur Jain Temple, located in Rajasthan’s Pali district, is a stunning 15th-century marble temple dedicated to Tirthankara Adinatha. Renowned for its intricate architecture, the temple features 1,444 uniquely carved pillars, delicate ceilings, and detailed sculptures, showcasing the pinnacle of Maru-Gurjara architectural style. It’s a major pilgrimage site for Jains and a marvel for art lovers and historians.
+
+Nearby attractions include:
+
+Kumbhalgarh Fort (approx. 33 km away): A UNESCO World Heritage Site known for its massive walls and panoramic views.
+
+Sadri: A small town with other Jain temples and traditional charm.
+
+Surya Narayan Temple: Dedicated to the Sun God, located near Ranakpur.
+
+Ranakpur Dam: A serene spot ideal for a quiet picnic amidst nature.
+
+Leopard Safari in Jawai (about 50 km away): A unique wildlife experience amidst granite hills.
+
+Ranakpur offers a mix of spiritual, architectural, and natural attractions, making it a memorable destination in Rajasthan.
+                   </div>
+                <div class="buttons">
+                    <button>SEE MORE</button>
+                    <a type="button" href="">GET LOCATION</a>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <div class="thumbnail">
+            <div class="item">
+                <img src="https://captureatrip-cms-storage.s3.ap-south-1.amazonaws.com/Sadri_6f2ab848dc.webp">
+                <div class="content">
+                    <div class="title">
+                        Ranakpur Jain Temple
+                    </div>
+                    <div class="description">  
+                    </div>
+                </div>
+            </div>
+           
+            
+            
+            <div class="item">
+                <img src="https://www.holidify.com/images/cmsuploads/articles/345.jpg">
+                <div class="content">
+                    <div class="title">
+                        HAMPI
+                    </div>
+                    <div class="description">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://s7ap1.scene7.com/is/image/incredibleindia/1-om-beach-gokarna-karnataka-city-hero?qlt=82&ts=1726720866389">
+                <div class="content">
+                    <div class="title">
+                        GOKARNA
+                    </div>
+                    <div class="description">
+                        
+                    </div>
+                </div>
+            </div>
+           
+            
+            <div class="item">
+                <img src="https://www.meghalayatourism.in/wp-content/uploads/2020/07/Mawlynnong-Living-Root-Bridge-1.jpg">
+                <div class="content">
+                    <div class="title">
+                        MAWLYNNONG
+                    </div>
+                    <div class="description">
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AB5caB9yX74tx6XeMhnSzxx5cJTOgKSa0WvAQUI-iS3Ew6la3119xcxPuUua5688KQEG4T3JVUOBe6hDkRZgol5dWPuc380p5DzP2oD3SFyPR1lIk7Lm_sjtdVYtLhgtSYs3cRkKS-fZ=w675-h390-n-k-no">
+                <div class="content">
+                    <div class="title">
+                        MANIKERI
+                    </div>
+                    <div class="description">
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://www.trawell.in/admin/images/upload/932329389KedareshwaraTemple_Main.jpg">
+                <div class="content">
+                    <div class="title">
+                        Arvalem Caves Halebidu
+                    </div>
+                    <div class="description">  
+                    </div>
+                </div>
+            </div>
+           
+
+    
+            
+
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+       
+        <div class="time"></div>
+    </div>
+
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2 class="modal-title"></h2>
+                <p class="modal-description"></p>
+                <img class="modal-image" src="" alt="Details">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2 class="modal-title"></h2>
+                <p class="modal-description"></p>
+                <img class="modal-image" src="" alt="Details">
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let nextDom = document.getElementById('next');
+    let prevDom = document.getElementById('prev');
+    
+    let carouselDom = document.querySelector('.carousel');
+    let SliderDom = carouselDom.querySelector('.carousel .list');
+    let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
+    let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
+    let timeDom = document.querySelector('.carousel .time');
+    
+    thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    let timeRunning = 1000;
+    let timeAutoNext = 250000;
+    
+    nextDom.onclick = function(){
+        showSlider('next');    
+    }
+    
+    prevDom.onclick = function(){
+        showSlider('prev');    
+    }
+    let runTimeOut;
+    let runNextAuto = setTimeout(() => {
+        next.click();
+    }, timeAutoNext)
+    function showSlider(type){
+        let  SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+        let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
+        
+        if(type === 'next'){
+            SliderDom.appendChild(SliderItemsDom[0]);
+            thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+            carouselDom.classList.add('next');
+        }else{
+            SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+            thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+            carouselDom.classList.add('prev');
+        }
+        clearTimeout(runTimeOut);
+        runTimeOut = setTimeout(() => {
+            carouselDom.classList.remove('next');
+            carouselDom.classList.remove('prev');
+        }, timeRunning);
+    
+        clearTimeout(runNextAuto);
+        runNextAuto = setTimeout(() => {
+            next.click();
+        }, timeAutoNext)
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('detailsModal');
+        const closeModal = document.querySelector('.close-modal');
+        const seeMoreButtons = document.querySelectorAll('.carousel .list .item .buttons button:first-child');
+        
+
+        
+        function openModal(content) {
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalDescription = modal.querySelector('.modal-description');
+            const modalImage = modal.querySelector('.modal-image');
+            
+            modalTitle.textContent = content.closest('.content').querySelector('.title').textContent;
+            modalDescription.textContent = content.closest('.content').querySelector('.des1').textContent;
+
+            modalImage.src = content.closest('.item').querySelector('img').src;
+            modalDescription.style.display="hidden";
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+   
+        seeMoreButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal(this);
+            });
+        });
+
+    
+        closeModal.addEventListener('click', function() {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+
+       
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+
+    </script>
+</body>
+</html>
